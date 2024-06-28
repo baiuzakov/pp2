@@ -1,0 +1,56 @@
+{
+    "imdata": [
+        {
+            "l1PhysIf": {
+                "attributes": {
+                    "dn": "topology/pod-1/node-201/sys/phys-[eth1/33]",
+                    "descr": "",
+                    "speed": "inherit",
+                    "mtu": "9150"
+                }
+            }
+        },
+        {
+            "l1PhysIf": {
+                "attributes": {
+                    "dn": "topology/pod-1/node-201/sys/phys-[eth1/34]",
+                    "descr": "",
+                    "speed": "inherit",
+                    "mtu": "9150"
+                }
+            }
+        },
+        {
+            "l1PhysIf": {
+                "attributes": {
+                    "dn": "topology/pod-1/node-201/sys/phys-[eth1/35]",
+                    "descr": "",
+                    "speed": "inherit",
+                    "mtu": "9150"
+                }
+            }
+        }
+    ]
+}
+
+
+import json
+
+# Read JSON data from the file
+with open('sample-data.json') as file:
+    data = json.load(file)
+
+# Print header
+print("Interface Status")
+print("=" * 80)
+print("{:<50} {:<20} {:<10} {:<6}".format("DN", "Description", "Speed", "MTU"))
+print("-" * 80)
+
+# Iterate through the data and print each entry
+for item in data['imdata']:
+    attributes = item['l1PhysIf']['attributes']
+    dn = attributes.get('dn', '')
+    descr = attributes.get('descr', '')
+    speed = attributes.get('speed', '')
+    mtu = attributes.get('mtu', '')
+    print("{:<50} {:<20} {:<10} {:<6}".format(dn, descr, speed, mtu))
