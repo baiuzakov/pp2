@@ -1,0 +1,61 @@
+import re
+
+# функция
+def read_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()
+
+# данные файла
+data = read_file('raw.txt')
+
+# Функция, которая ищет строки, содержащие 'a' с последующими нулем или более 'b'
+def match_ab_zero_or_more(s):
+    return re.findall(r'a(b)*', s)
+
+# Функция, которая ищет строки, содержащие 'a' с последующими двумя или тремя 'b'
+def match_ab_two_to_three(s):
+    return re.findall(r'a(b{2,3})', s)
+
+# Функция для поиска последовательностей строчных букв, соединенных подчеркиванием
+def find_lowercase_with_underscore(s):
+    return re.findall(r'[a-z]+_[a-z]+', s)
+
+# Функция для поиска последовательностей одной заглавной буквы с последующими строчными буквами
+def find_uppercase_followed_by_lowercase(s):
+    return re.findall(r'[A-Z][a-z]+', s)
+
+# Функция, которая ищет строки, содержащие 'a', за которой следует что угодно, оканчивающуюся на 'b'
+def match_a_followed_by_anything_ending_in_b(s):
+    return re.findall(r'a.*b', s)
+
+# Функция для замены всех пробелов, запятых и точек на двоеточие
+def replace_space_comma_dot_with_colon(s):
+    return re.sub(r'[ ,.]', ':', s)
+
+# Функция для преобразования snake_case строки в camelCase
+def snake_to_camel(s):
+    return ''.join(word.capitalize() if i != 0 else word for i, word in enumerate(s.split('_')))
+
+# Функция для разбиения строки по заглавным буквам
+def split_by_uppercase(s):
+    return re.split(r'(?=[A-Z])', s)
+
+# Функция для вставки пробелов между словами, начинающимися с заглавных букв
+def insert_spaces_before_capitals(s):
+    return re.sub(r'([A-Z])', r' \1', s).strip()
+
+# Функция для преобразования camelCase строки в snake_case
+def camel_to_snake(s):
+    return re.sub(r'(?<!^)(?=[A-Z])', '_', s).lower()
+
+# Выполнение всех задач на данных из raw.txt
+print("Задание 1:", match_ab_zero_or_more(data))
+print("Задание 2:", match_ab_two_to_three(data))
+print("Задание 3:", find_lowercase_with_underscore(data))
+print("Задание 4:", find_uppercase_followed_by_lowercase(data))
+print("Задание 5:", match_a_followed_by_anything_ending_in_b(data))
+print("Задание 6:", replace_space_comma_dot_with_colon(data))
+print("Задание 7:", snake_to_camel('this_is_snake_case'))
+print("Задание 8:", split_by_uppercase('SplitThisStringAtUppercase'))
+print("Задание 9:", insert_spaces_before_capitals('InsertSpacesBetweenWordsStartingWithCapitalLetters'))
+print("Задание 10:", camel_to_snake('convertThisStringToSnakeCase'))
